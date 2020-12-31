@@ -1,0 +1,116 @@
+
+<div class="mainDiv">
+    <mat-horizontal-stepper linear>
+    
+      <mat-step label="Register Info" [stepControl]="registerInfoForm" completed = false>
+        <form ngForm  (submit)="registerInfo(registerInfoForm)" #registerInfoForm="ngForm">
+    
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="First Name" ngModel #fn="ngModel" name="firstName" required>
+            <mat-error *ngIf="fn.invalid">Please enter a first name</mat-error>
+          </mat-form-field>
+    
+           <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Last Name" ngModel #ln="ngModel" name="lastName" required>
+            <mat-error *ngIf="ln.invalid">Please enter a last name</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" ngModel #em="ngModel" name="email" required email type="email">
+            <mat-error *ngIf="em.invalid">Please enter a valid email</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <mat-label>Mobile</mat-label>
+            <input matInput placeholder="Mobile" ngModel #mob="ngModel" name="mobile" required pattern="[0-9 ]{11}">
+            <mat-error *ngIf="mob.invalid">Please enter a mobile number</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field>
+          <mat-label>BirthDate</mat-label>
+          <input matInput placeholder="BirthDay" type="date" ngModel #bd="ngModel" name="birthDate" required>
+          <mat-error *ngIf="bd.invalid">Please enter a birthdate</mat-error>
+          </mat-form-field>
+    
+          <div>
+            <button type="submit" mat-button matStepperNext>Next</button>
+          </div>
+    
+        </form>
+      </mat-step>
+    
+      <mat-step label="Choose Flight" [stepControl]="flightDetailsInfoForm" completed = false>
+        <form ngForm  (submit)="flightDetailsInfo(flightDetailsInfoForm)" #flightDetailsInfoForm="ngForm">
+    
+          <mat-form-field>
+            <mat-label>Flight Date</mat-label>
+            <input matInput placeholder="Flight Date" ngModel #fd="ngModel" name="flightDate" required type="date">
+            <mat-error *ngIf="fd.invalid">Please enter a flight date</mat-error>
+          </mat-form-field>
+    
+           <mat-form-field>
+            <mat-label>Flight Level</mat-label>
+            <select matNativeControl name="flightLevel" required #f1="ngModel" ngModel>
+              <option *ngFor="let level of flightLevels" [value]="level.Id">
+                {{level.Name}}
+              </option>
+            </select>
+          </mat-form-field>
+    
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button type="submit" mat-button matStepperNext>Next</button>
+          </div>
+    
+        </form>
+      </mat-step>
+    
+      <mat-step label="Payment Method" [stepControl]="PaymentInfoForm" completed = false>
+        <form ngForm  (submit)="paymentInfo(PaymentInfoForm)" #PaymentInfoForm="ngForm">
+    
+          <mat-form-field>
+            <mat-label>Payment Method</mat-label>
+            <select matNativeControl name="paymentMethod" required #pm="ngModel" ngModel [(ngModel)]="payMethod">
+              <option *ngFor="let method of paymentMethods" [value]="method.Id">
+                {{method.Name}}
+              </option>
+            </select>
+            <mat-error *ngIf="pm.invalid">Please enter the payment method</mat-error>
+          </mat-form-field>
+    
+           <mat-form-field *ngIf="payMethod == 1">
+            <mat-label>Credit Card Number</mat-label>
+            <input matInput placeholder="Credit Card" ngModel #cc="ngModel" name="creditCard" required pattern="[0-9 ]{14}">
+            <mat-error *ngIf="cc.invalid">Please enter the Credit Card Number</mat-error>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput placeholder="Address" ngModel #ad="ngModel" name="address" required>
+            <mat-error *ngIf="ad.invalid">Please enter the address</mat-error>
+          </mat-form-field>
+    
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button type="submit" mat-button matStepperNext>Next</button>
+          </div>
+    
+        </form>
+      </mat-step>
+    
+    
+      <mat-step label="Done" completed = false>
+          <div>
+            <h2 style="text-align: center;">Thank You. Please Submit Your Ticket Order.</h2>
+          </div>
+          <div>
+            <button (click)="book()" mat-button matStepperNext>Book Ticket</button>
+          </div>
+      </mat-step>
+    
+    
+    </mat-horizontal-stepper>
+    </div>
